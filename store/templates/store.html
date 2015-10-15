@@ -5,7 +5,21 @@
     <title></title>
 </head>
 <body>
-Welcome to the Store!
-There are {{ count }} book(s).
+{% if request.user.is_authenticated %}
+    <h4>
+        Welcome, {% if request.user.first_name %}
+        {{ request.user.first_name }}
+        {% else %}
+        {{ request.user.username }}
+        {% endif %}! <a href="{% url 'auth_logout' %}">Log Out</a>
+    </h4>
+{% else %}
+    <h4>
+        Welcome my friend, would you like to <a href="{% url 'auth_login' %}">log in?</a>
+{% endif %}
+<br>
+Welcome to the Store! There are {{ count }} book(s).
+<br>
+User location: {{ request.session.location }}
 </body>
 </html>

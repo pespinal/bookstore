@@ -2,6 +2,6 @@ Greetings,
 
 you have signed up for an account at {{ site.name }}. Please click the link below to activate it.
 
-https://{{ site.domain }}{$ url 'registration_activate' activation_key %}
+http://{{ site.domain }}{% url 'registration_activate' activation_key %}
 
-This link is valid for {{ expiration_days }}.
+This link is valid for {{ expiration_days }} days.
