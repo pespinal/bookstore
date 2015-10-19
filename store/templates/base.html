@@ -21,7 +21,7 @@
 
 {% block bootstrap3_content %}
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
@@ -43,21 +43,18 @@
         </div>
     </nav>
 
-{% endblock %}
-
-
-
-<div class="container-fluid">
+    <div class="container-fluid">
         <img src="{% static 'base/img/header_full.jpg' %}" />
         <div class="parallax">
             {% block body %}
 
-                <div class="col-md-8 col-md-offset-4 col-sm-12 maincontent">
 
-                    <br><br><br>
+
+                <br><br><br>
 
                 {% if request.user.is_authenticated %}
-                    <h4>
+                    <div class="col-md-8 col-md-offset-4 col-sm-12 maincontent">
+                        <h4>
                         Welcome,
                         {% if request.user.first_name %}
                             {{ request.user.first_name }}
@@ -65,35 +62,33 @@
                             {{ request.user.username }}
                         {% endif %}!
                         <a href="{% url 'auth_logout' %}">Log Out</a>.
-                    </h4>
-
+                        </h4>
+                    </div>
                 {% else %}
-                    {% block content %}
-                    <form method="post" action=".">
-                        {% csrf_token %}
-                        {{form.as_p}}
-                        <input type="submit" value="Log In" />
-                        <input type="hidden" name = "next" value="{{next}}" />
-                    </form>
-                    <!--<a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>-->
-                    {% endblock %}
+                    <div class="col-md-8 col-md-offset-2 col-sm-12 maincontent">
+                    <div class="jumbotron">
+
+                        <h1>Hello, world!</h1>
+                        <p> Welcome to Mystery Books, would you like to <a href="{% url 'auth_login' %}">log in</a>?.
+                        <br> Or maybe, you want to <a href="{% url 'registration_register' %}">register</a>.</p>
+
+                     </div>
+                    </div>
 
                 {% endif %}
 
-                </div>
+
+
 
             {% endblock %}
         </div>
-</div>
-
-<div class="row text-center navbar footer">
-    <div class="col-md-12">
-        <p>2015 Mystery Books</p>
     </div>
-</div>
+
+    <div class="row text-center navbar footer">
+        <div class="col-md-12">
+            <p>2015 Mystery Books</p>
+        </div>
+    </div>
 
 
-
-
-
-
+{% endblock %}

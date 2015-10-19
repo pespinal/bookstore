@@ -37,7 +37,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social.apps.django_app.default',
     'registration',
+    'bootstrap3',
+    'bootstrap_themes',
     'store',
 )
 
@@ -65,12 +68,19 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'bookstore.wsgi.application'
+
+AUTHENTICATION_BACKENDS = (
+    'social.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend'
+)
 
 
 # Database
@@ -116,3 +126,7 @@ EMAIL_HOST_PASSWORD = "1q2w3e4r5ttriops"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "books@mybookstore.com"
+
+# Social Auth - Facebook
+SOCIAL_AUTH_FACEBOOK_KEY = '1621369974780423'
+SOCIAL_AUTH_FACEBOOK_SECRET = 'b7d90ddc85c86531dd64d2191f85b329'
