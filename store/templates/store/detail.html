@@ -21,7 +21,9 @@
 
 {% block bootstrap3_content %}
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<link rel="stylesheet" href="style.css">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
@@ -29,7 +31,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="" class="navbar-brand">Mystery Books</a>
+                <a href="{% url 'index' %}" class="navbar-brand">Mystery Books</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -37,54 +39,25 @@
                     <li class="hvr-curl-top-right"><a href="#about">About</a> </li>
                     <li class="hvr-curl-top-right"><a href="#contact">Contact</a> </li>
                 </ul>
-                <div class="navbar-form pullright">
-                </div>
+
             </div>
         </div>
     </nav>
 
-{% endblock %}
-
-
-
 <div class="container-fluid">
         <img src="{% static 'base/img/header_full.jpg' %}" />
-        <div class="parallax">
+        <div class="parallax" >
             {% block body %}
-
-                <div class="col-md-8 col-md-offset-4 col-sm-12 maincontent">
-
-                    <br><br><br>
-
-                {% if request.user.is_authenticated %}
-                    <h4>
-                        Welcome,
-                        {% if request.user.first_name %}
-                            {{ request.user.first_name }}
-                        {% else %}
-                            {{ request.user.username }}
-                        {% endif %}!
-                        <a href="{% url 'auth_logout' %}">Log Out</a>.
-                    </h4>
-
-                {% else %}
-                    {% block content %}
-                    <form method="post" action=".">
-                        {% csrf_token %}
-                        {{form.as_p}}
-                        <input type="submit" value="Register" />
-                    </form>
-                    <!--<a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>-->
-                    {% endblock %}
-
-                {% endif %}
-
+            <div class="col-md-8 col-md-offset-2 col-sm-12 maincontent">
+                <div class="detail_book_display">
+                    <img class="detail_book_img" src="{% static 'base/img/no_book_cover.jpg' %}">
+                    <span class="detail_book_title">{{ book.title }}</span>
+                    <span class="detail_book_author">{{ book.author }}</span>
+                    <div class="detail_book_description">{{ book.description }}</div>
                 </div>
+            </div>
 
             {% endblock %}
-        </div>
-</div>
 
-<footer>
-    Copyright © Mystery Books 2015
-</footer>
+
+{% endblock %}

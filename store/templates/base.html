@@ -21,6 +21,8 @@
 
 {% block bootstrap3_content %}
 
+<link rel="stylesheet" href="style.css">
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -37,39 +39,51 @@
                     <li class="hvr-curl-top-right"><a href="#about">About</a> </li>
                     <li class="hvr-curl-top-right"><a href="#contact">Contact</a> </li>
                 </ul>
-                <div class="navbar-form pullright">
-                </div>
+
             </div>
         </div>
     </nav>
 
     <div class="container-fluid">
         <img src="{% static 'base/img/header_full.jpg' %}" />
-        <div class="parallax">
+        <div class="parallax" >
             {% block body %}
-
-
 
                 <br><br><br>
 
                 {% if request.user.is_authenticated %}
-                    <div class="col-md-8 col-md-offset-4 col-sm-12 maincontent">
-                        <h4>
-                        Welcome,
-                        {% if request.user.first_name %}
-                            {{ request.user.first_name }}
-                        {% else %}
-                            {{ request.user.username }}
-                        {% endif %}!
-                        <a href="{% url 'auth_logout' %}">Log Out</a>.
-                        </h4>
+                    <div class="col-md-8 col-md-offset-4 col-sm-10 col-sm-offset-10 maincontent">
+                        <div style="text-align:right">
+                            <h4>
+                            Welcome,
+                            {% if request.user.first_name %}
+                                {{ request.user.first_name }}
+                            {% else %}
+                                {{ request.user.username }}
+                            {% endif %}!
+                            <a href="{% url 'auth_logout' %}">Log Out</a>.
+                            </h4>
+                        </div>
+
                     </div>
+
+                    <br><br><br><br>
+                    {% for book in books %}
+                        <div class="storefront_book_display">
+                            <a href="{% url 'book_details' book.id %}">
+                            <img src="{% static 'base/img/no_book_cover.jpg' %}" >
+                            <span class="storefront_book_title">{{ book.title }}</span>
+                            <span class="storefront_book_author">{{ book.author }}</span>
+                            </a>
+                        </div>
+                    {% endfor %}
+
                 {% else %}
-                    <div class="col-md-8 col-md-offset-2 col-sm-12 maincontent">
+                    <div class="col-md-12 col-md-offset-0 col-sm-10 maincontent">
                     <div class="jumbotron">
 
-                        <h1>Hello, world!</h1>
-                        <p> Welcome to Mystery Books, would you like to <a href="{% url 'auth_login' %}">log in</a>?.
+                        <h1>Welcome to Mystery Books!</h1>
+                        <p>  Would you like to <a href="{% url 'auth_login' %}">log in</a>?.
                         <br> Or maybe, you want to <a href="{% url 'registration_register' %}">register</a>.</p>
 
                      </div>
@@ -86,9 +100,13 @@
 
     <div class="row text-center navbar footer">
         <div class="col-md-12">
-            <p>2015 Mystery Books</p>
+            <p></p>
         </div>
     </div>
+
+<footer>
+    Copyright © Mystery Books 2015
+</footer>
 
 
 {% endblock %}
